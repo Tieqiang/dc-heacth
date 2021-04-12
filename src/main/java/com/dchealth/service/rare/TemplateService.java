@@ -459,6 +459,33 @@ public class TemplateService {
     }
 
     /**
+     * 获取私有的模板设计内容
+     * @param dcode
+     * @param title
+     * @return
+     * @throws Exception
+     */
+    @GET
+    @Path("get-private-work-form-V2")
+    public Form getPrivateTemplateFormV2(@QueryParam("dcode")String dcode,@QueryParam("title")String title) throws Exception {
+        YunUsers yunUsers = UserUtils.getYunUsers();
+        String hqlPrivate = "select t.mbsj from YunDisTemplet as t where t.dcode='"+dcode+"' and t.title='"+title+"' and (t.doctorId='"+yunUsers.getId()+"'" +
+                " or (t.deptId='"+yunUsers.getDeptId()+"' and t.deptId<>'0'))" ;
+        List<String> yunDisTemplets = baseFacade.createQuery(String.class, hqlPrivate, new ArrayList<Object>()).getResultList();
+        if(yunDisTemplets!=null && !yunDisTemplets.isEmpty()){
+            //YunDisTemplet tmplate = yunDisTemplets.get(0);
+            String mbsj = yunDisTemplets.get(0);
+            if(mbsj!=null&&!"".equals(mbsj)){
+                return getFormData(mbsj);
+            }else{
+                return  null ;
+            }
+        }else{
+            return null ;
+        }
+    }
+
+    /**
      * 获取已经发布的表单
      * @param dcode
      * @param title
