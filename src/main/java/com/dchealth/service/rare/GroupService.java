@@ -47,15 +47,19 @@ public class GroupService {
      */
     @GET
     @Path("yun-organ-number-list")
-    public List<YunUsers> getYunOrganUserList(@QueryParam("id")String id){
-        String hql = "select yu from YunOrganNumber as y,YunUsers as yu where y.userId = yu.id ";
-        if(id!=null && !"".equals(id)){
-            hql += " and y.groupId = '" + id +"'";
-        }else{
+    public List<YunUsers> getYunOrganUserList(@QueryParam("id")String id) {
+        String hql =
+            "select yu from YunOrganNumber as y,YunUsers as yu where y.userId = yu.id ";
+
+        if (id!=null && !"".equals(id)) {
+            hql += " and y.groupId = '" + id + "'";
+        } else {
             hql += " and y.groupId = ' '";
         }
-        List<YunUsers> yunUsersList = baseFacade.createQuery(YunUsers.class,hql, new ArrayList<Object>()).getResultList();
-        return yunUsersList;
+
+        return baseFacade
+            .createQuery(YunUsers.class,hql, new ArrayList<Object>())
+            .getResultList();
     }
 
     /**

@@ -58,6 +58,8 @@
         <asm.version>3.3.1</asm.version>
         <spring.data.jpa.version>1.4.3.RELEASE</spring.data.jpa.version>
         <hibernate.validator.version>4.3.1.Final</hibernate.validator.version>
+        <sonar.organization>apiiro</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
     <dependencies>
         <!--jetty-->
